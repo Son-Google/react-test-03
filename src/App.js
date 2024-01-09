@@ -1,25 +1,76 @@
-import logo from './logo.svg';
+/* eslint-disable */
+
 import './App.css';
+import { useState } from 'react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    let post = '||| 강남 우동 맛집 |||';
+    let [글제목, 글제목변경] = useState(['남자 코트 추천', '외계인 코트 추천', '기안 코트 추천'])
+    let [logo, setLogo] = useState('React Blog');
+    let [따봉, 따봉변경] = useState(0);
+    let [modal, setModal] = useState(0);
+
+
+
+    function 제목버튼바꾸기(val){
+        b[val] = "여자 코트 추천";
+    }
+
+    return (
+        <div className="App">
+            <div className="black-nav">
+                <h1 style={ {color : 'red', fontSize : '24px' } }>블로그임 <span>{logo}</span></h1>
+            </div>
+            <h2>{ post }</h2>
+            <p>
+                <button onClick={() => {
+                    let copy = [...글제목];
+                    copy[0] = "여자코트추천";
+                    글제목변경(copy);
+                    }}>제목바꾸기</button>
+            </p>
+            <p>
+                <button onClick={() => {
+                    let 오더냐 = [...글제목];
+                    오더냐 = 오더냐.sort();
+                    글제목변경(오더냐);
+                    }}>제목정렬하기</button>
+            </p>
+            <div className="list">
+                <h3>{글제목[0]} <span onClick={ () => { 따봉변경(따봉+1) } } style={{cursor:"pointer"}}>👍</span> {따봉}</h3>
+                <p>2월 17일 발행</p>
+            </div>
+            <div className="list">
+                <h3>{글제목[1]}</h3>
+                <p>2월 17일 발행</p>
+            </div>
+            <div className="list">
+                <h3><a href="#" onClick={() => {setModal(!modal)}}>{글제목[2]}</a></h3>
+                <p>2월 17일 발행</p>
+            </div>
+
+            {
+                modal == 1 ? <Modal /> : null
+            }
+
+        </div>
+    );
 }
+
+/*
+// 컴포넌트 만들때에는 함수명을 똑같이 대문자로 만들라해
+ */
+//모달 컴포넌트
+function Modal(){
+    return (
+        <div className="modal">
+            <h4>제목</h4>
+            <p>날짜</p>
+            <p>상세내용</p>
+        </div>
+    );
+}
+
 
 export default App;
